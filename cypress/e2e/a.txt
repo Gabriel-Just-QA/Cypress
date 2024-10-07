@@ -1,0 +1,96 @@
+before(() => {
+    // Preparação do ambiente, caso necessário (executa uma vez antes de todos os testes)
+  });
+
+    // it('Fazer cadastro ', () => {
+    //   cy.visit('https://sales-mgmt-cb-mfe-composer-akamai.prd.naturacloud.com/?consultoria=jhsropero1')
+    //   cy.wait(2000); 
+    //   cy.get('[data-testid="closeButton"] > .jsx-6f3a2d9e2e311ac8').click()
+
+
+    //   cy.get('#gtmActionsMenuList > div > div > div.jsx-1681f388cd853621.modal-login-status-content > div > button.jsx-50b7ee36f9fe1d46.btn_container.container__outlined').click({ force: true })
+    //   cy.wait(2000); 
+
+    //   cy.get('#register-name').type("Teste teste");
+    //   cy.get('#register-email').type("teste1212212@teste.com");
+    //   cy.get('#register-cpf').type("538.147.520-90");
+    //   cy.get('#register-cellphone').type("99999999999");
+    //   cy.get('#register-birthdate').type("10102000");
+    //   cy.get('#register-password').type("Senha@123");
+    //   cy.get('#register-repeat-password').type("Senha@123");
+    //   cy.get('[style="margin-bottom: 20px;"] > .custom-checkbox-base > .checkmark').click()
+    //   cy.get('#gtmNewAccount').click();
+    //   cy.get('body').should('contain', 'Cadastro realizado com sucesso');
+    // });
+
+    // it('Fazer Login', () => {
+    //   cy.visit('https://sales-mgmt-cb-mfe-composer-akamai.prd.naturacloud.com/?consultoria=jhsropero1')
+    //   cy.wait(1000); 
+    //   cy.get('[data-testid="closeButton"] > .jsx-6f3a2d9e2e311ac8').click()
+    //   cy.get('#gtmActionsMenuList > div > div > div.jsx-1681f388cd853621.modal-login-status-content > div > button.jsx-50b7ee36f9fe1d46.btn_container.container__contained').click({ force: true })
+
+    //   cy.get(':nth-child(1) > .input-common > .jsx-425268b939f6000f').type("teste1212212@teste.com")
+    //   cy.get(':nth-child(2) > .input-common > input.jsx-425268b939f6000f').type("Senha@123")
+    //   cy.get('#gtmLogin').click()
+      
+    // });
+
+    // it('Selecionar Produto', () => {
+    //   cy.visit('https://sales-mgmt-cb-mfe-composer-akamai.prd.naturacloud.com/?consultoria=jhsropero1')
+    //   cy.wait(2000); 
+    //   cy.get('[data-testid="closeButton"] > .jsx-6f3a2d9e2e311ac8').click()
+
+    //   cy.get(':nth-child(2) > #gtmSidemenuListItemText').click()
+    //   cy.wait(2000)
+
+    //   cy.get('#__next > div.global-container > div.jsx-a77d441af83bfd50.container.contaier-fluid.category__results--container > div.jsx-33948cb112c1f19a.h-categoryResults__results > div:nth-child(1) > div.jsx-de727273ea3a7143.card-img-container > div.jsx-de727273ea3a7143.card-img > img').click()
+    //   cy.get('.product-detail-banner-container').should('exist')
+
+
+    //   cy.get('#__next > div.global-container > div.jsx-1ac01c436c9a63bb > div > div.jsx-1ac01c436c9a63bb.product-detail-banner-container > div.jsx-8990b80a21bb1a60.product-detail-banner-grid-info > div > div > div.jsx-8990b80a21bb1a60.product-info-buttons-actions > div > div > button').click()
+    //   cy.get("#__next > div.jsx-4356fd71142b3e9a > div.jsx-4356fd71142b3e9a.drawer.drawer-right.open > div > div.jsx-4356fd71142b3e9a.drawer-scroll-content.display-scroll-content > div.jsx-44dce6d66b50196f.drawer-footer > button").click()
+    //   cy.get('body').should('contain', 'Produto adicionado a sacola com sucesso!');
+    // cy.get('#gtmbuyNow').click()
+    // });
+
+//     it('Fluxo Completo', () => {
+  
+//         Cypress.on('uncaught:exception', (err, runnable) => {
+//           // Retorna false para evitar que erros não capturados falhem o teste
+//           return false;
+//         });
+        
+// // visita
+//       cy.visit('https://sales-mgmt-cb-mfe-composer-akamai.prd.naturacloud.com/?consultoria=jhsropero1')
+//             // espera o botão de fechar o anúncio aparecer e clica
+//       cy.get('[data-testid="closeButton"]').should('be.visible').click()
+
+
+//       // clica no botão de login
+//       cy.get('#gtmActionsMenuList > div > div > div.jsx-1681f388cd853621.modal-login-status-content > div > button.jsx-50b7ee36f9fe1d46.btn_container.container__contained').click({ force: true })
+
+//       // preenche os dados
+//       cy.get(':nth-child(1) > .input-common > .jsx-425268b939f6000f').type("teste1212212@teste.com")
+//       cy.get(':nth-child(2) > .input-common > input.jsx-425268b939f6000f').type("Senha@123")
+//       cy.get('#gtmLogin').click()
+//       cy.get('.actions-menu-profile-content > .ActionsMenuListButton', { timeout: 10000 }).should('not.exist')
+
+//       // cy.get('#gtmLogin').should('not.exist')
+
+
+//       cy.wait(100000)
+// // clica em perfume
+//       cy.get(':nth-child(2) > #gtmSidemenuListItemText').click()
+
+//       cy.get('#__next > div.global-container > div.jsx-a77d441af83bfd50.container.contaier-fluid.category__results--container > div.jsx-33948cb112c1f19a.h-categoryResults__results > div:nth-child(1) > div.jsx-de727273ea3a7143.card-img-container > div.jsx-de727273ea3a7143.card-img > img').click()
+//       cy.get('.product-detail-banner-container').should('exist')
+
+
+//       cy.get('#__next > div.global-container > div.jsx-1ac01c436c9a63bb > div > div.jsx-1ac01c436c9a63bb.product-detail-banner-container > div.jsx-8990b80a21bb1a60.product-detail-banner-grid-info > div > div > div.jsx-8990b80a21bb1a60.product-info-buttons-actions > div > div > button').click()
+//       cy.get(" div.jsx-44dce6d66b50196f.drawer-footer > button").click()
+//       cy.get('body').should('contain', 'Produto adicionado a sacola com sucesso!');
+//       cy.get('#gtmbuyNow').click()
+//       cy.wait(10000); 
+
+//     });
+const faker = require('faker-br');
