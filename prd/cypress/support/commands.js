@@ -44,8 +44,7 @@ Cypress.Commands.add('login', ( email, senha) => {
            cy.get(':nth-child(1) > .input-common > .jsx-425268b939f6000f').type(email)
            cy.get(':nth-child(2) > .input-common > input.jsx-425268b939f6000f').type(senha)
            cy.get('#gtmLogin').click()
-           cy.get('.actions-menu-profile-content > .ActionsMenuListButton', { timeout: 15000 })
-           .should('not.contain.text', 'Perfil');
+           cy.get('.actions-menu-profile-content > .ActionsMenuListButton', { timeout: 15000 }).should('not.contain.text', 'Perfil');
               
     cy.log("Login Feito com sucesso")
   });

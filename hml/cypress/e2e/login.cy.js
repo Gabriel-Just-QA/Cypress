@@ -22,8 +22,7 @@ describe('Teste Completo de Fluxo Site Natura', () => {
 
 
   let dados;
-  let consultor = "juanito"
-  let nome = "Gabriel"
+  let consultor = "consultorahmlteste"
 
   before(() => {
     cy.fixture('dados-usuario').then((data) => {
@@ -66,6 +65,10 @@ beforeEach(() => {
   it('Mudar a Senha', () => {
   const novaSenha = gerarSenhaAleatoria();
   const fixtureName = 'dados-usuario'; // Nome do arquivo fixture
+
+  cy.selecionarConsultor(consultor)
+
+  
   cy.log(novaSenha)
   cy.get('#gtmActionsMenuList > div > div > div.jsx-1681f388cd853621.modal-login-status-content > div > button.jsx-50b7ee36f9fe1d46.btn_container.container__contained').click({ force: true })
 
@@ -116,6 +119,7 @@ beforeEach(() => {
    
   
 // verifica se a mensagem de sucesso aparece
+cy.wait(1000)
 
       cy.contains('Produto adicionado a sacola').should('be.visible')
    
@@ -128,7 +132,12 @@ cy.get('#gtmbuyNow').should('be.enabled').click();
 
 // espera 10sec
     cy.wait(4000)
-    cy.login(dados.email, dados.senha)
-
+    cy.get(':nth-child(1) > .input-common > .jsx-425268b939f6000f').type(dados.email)
+    cy.get(':nth-child(2) > .input-common > input.jsx-425268b939f6000f').type(dados.senha)
+    cy.get('#gtmLogin').click()
+    cy.wait(4000)
+    cy.get(':nth-child(1) > .input-common > .jsx-425268b939f6000f').type(dados.email)
+    cy.get(':nth-child(2) > .input-common > input.jsx-425268b939f6000f').type(dados.senha)
+    cy.get('#gtmLogin').click()
   })
 });
