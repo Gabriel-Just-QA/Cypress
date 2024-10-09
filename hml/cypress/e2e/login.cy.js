@@ -32,7 +32,6 @@ describe('Teste Completo de Fluxo Site Natura', () => {
 
 beforeEach(() => {
 
-  cy.visit('/');
 
   Cypress.on('uncaught:exception', (err, runnable) => {
     return false; 

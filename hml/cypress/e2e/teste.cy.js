@@ -1,24 +1,4 @@
 describe('Teste Completo de Fluxo Site Natura', () => {  
-
-  function gerarSenhaAleatoria() {
-    const caracteres = {
-      maiusculas: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-      minusculas: 'abcdefghijklmnopqrstuvwxyz',
-      numeros: '0123456789',
-      especiais: '@#!%&*'
-    };
-    let senha = [
-      caracteres.maiusculas[Math.floor(Math.random() * caracteres.maiusculas.length)],
-      caracteres.minusculas[Math.floor(Math.random() * caracteres.minusculas.length)],
-      caracteres.numeros[Math.floor(Math.random() * caracteres.numeros.length)],
-      caracteres.especiais[Math.floor(Math.random() * caracteres.especiais.length)]
-    ];
-    const todos = caracteres.maiusculas + caracteres.minusculas + caracteres.numeros + caracteres.especiais;
-    while (senha.length < 15) {
-      senha.push(todos[Math.floor(Math.random() * todos.length)]);
-    }
-    return senha.sort(() => Math.random() - 0.5).join('');
-  }
     let dados;
   
   before(() => {
@@ -57,7 +37,7 @@ describe('Teste Completo de Fluxo Site Natura', () => {
   });
 
 
-it.only('Mudar Senha', () => {
+it('Mudar Senha', () => {
   cy.gerarSenhaAleatoria().then((senha) => {
   });
 
