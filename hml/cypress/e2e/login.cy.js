@@ -1,142 +1,172 @@
-describe('Teste Completo de Fluxo Site Natura', () => {  
 
-  function gerarSenhaAleatoria() {
-    const caracteres = {
-      maiusculas: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-      minusculas: 'abcdefghijklmnopqrstuvwxyz',
-      numeros: '0123456789',
-      especiais: '@#!%&*'
-    };
-    let senha = [
-      caracteres.maiusculas[Math.floor(Math.random() * caracteres.maiusculas.length)],
-      caracteres.minusculas[Math.floor(Math.random() * caracteres.minusculas.length)],
-      caracteres.numeros[Math.floor(Math.random() * caracteres.numeros.length)],
-      caracteres.especiais[Math.floor(Math.random() * caracteres.especiais.length)]
-    ];
-    const todos = caracteres.maiusculas + caracteres.minusculas + caracteres.numeros + caracteres.especiais;
-    while (senha.length < 15) {
-      senha.push(todos[Math.floor(Math.random() * todos.length)]);
-    }
-    return senha.sort(() => Math.random() - 0.5).join('');
+describe('Testes De Login e Perfil', () => {  
+
+  function removeMask(value) {
+    return value.replace(/\D/g, ''); // Remove todos os caracteres que não são dígitos
   }
-
-
-  let dados;
-  let consultor = "consultorahmlteste"
+    let dados;
+    let senhaAtual
 
   before(() => {
     cy.fixture('dados-usuario').then((data) => {
       dados = data;
+      senhaAtual = dados.senha
+
     });
   });
 
-beforeEach(() => {
+
+  beforeEach(() => {  
+    Cypress.on('uncaught:exception', (err, runnable) => {
+      return false; 
+    })
+  });
 
 
-  Cypress.on('uncaught:exception', (err, runnable) => {
-    return false; 
-  })
+  it('Fazer Login com dados validos', () => {
+    cy.consultorVideo()
+    cy.clicarEmLogin()
+    cy.fazerLogin(dados.email, senhaAtual)
+  }) 
+
+  it('Fazer Logout Diretamente', () => {
+    cy.consultorVideo()
+    cy.clicarEmLogin()
+    cy.fazerLogin(dados.email, senhaAtual)
+    cy.logoutDireto()
+    cy.wait(3000)
+  });
+
+  it('Fazer Logout pelo Perfil', () => {
+    cy.consultorVideo()
+    cy.clicarEmLogin()
+    cy.fazerLogin(dados.email, senhaAtual)
+    cy.logoutDoPerfil()
+    cy.wait(3000)
+  });
+
+
+it('Mudar Senha', () => {
+  cy.updateFixture('dados-usuario', 'bkpSenha', senhaAtual)
+  cy.gerarSenhaAleatoria().then((novaSenha) => {
+    cy.consultorVideo()
+    cy.clicarEmLogin()
+    cy.fazerLogin(dados.email, senhaAtual)
+    cy.clicarEmMeuPerfil()
+    cy.contains('Mudar senha').click()
+    cy.get('#password').type(senhaAtual)
+    cy.get('#newPassword').type(novaSenha)
+    cy.get('#confirmPassword').type(novaSenha)
+    cy.contains('Salvar alterações').should('be.enabled').click()
+    cy.updateFixture('dados-usuario', 'senha', novaSenha)
+    senhaAtual = novaSenha
+
+  });
+  cy.contains('Faça seu login').should('be.visible')
 
 });
 
 
-    it('Fazer Login com dados validos', () => {
-      cy.selecionarConsultor(consultor)
-      cy.get('#gtmActionsMenuList > div > div > div.jsx-1681f388cd853621.modal-login-status-content > div > button.jsx-50b7ee36f9fe1d46.btn_container.container__contained').click({ force: true })
+it('Editar Endereço Cadastrado', () => {
+  cy.fixture('dados-usuario').then((data) => {
+    dados = data;
+  });
 
-      cy.login(dados.email, dados.senha)
+  cy.consultorVideo()
+  cy.clicarEmLogin()
+  cy.fazerLogin(dados.email, senhaAtual)
+  cy.clicarEmMeuPerfil()
+  cy.contains('Meus endereços').click()
+  cy.get('.card-address-container').should('be.visible').click()
+  cy.generateRandomNumber(3).then((numeroAleatorio) => {
+  });
+  cy.contains('Editar endereço').should('exist')
+  cy.wait(3000)
 
-    }) 
-
-    it('Testando logout', () => {
-      cy.selecionarConsultor(consultor)
-      cy.get('#gtmActionsMenuList > div > div > div.jsx-1681f388cd853621.modal-login-status-content > div > button.jsx-50b7ee36f9fe1d46.btn_container.container__contained').click({ force: true })
-
-        cy.login(dados.email, dados.senha)
-        cy.get('#gtmActionsMenuList > div > div > div.jsx-1681f388cd853621.modal-login-status-content > div:nth-child(1) > div > span.jsx-1681f388cd853621.modal-login-status-text-content').click({ force: true })    
-        cy.wait(2000)
-        cy.get(':nth-child(7) > .sidemenu-list-item-btn > #gtmSidemenuListItemText').click()
-        
-        cy.get('#gtmLogin').should('be.visible')
-
-    });
-
-  it('Mudar a Senha', () => {
-  const novaSenha = gerarSenhaAleatoria();
-  const fixtureName = 'dados-usuario'; // Nome do arquivo fixture
-
-  cy.selecionarConsultor(consultor)
-
+//   let cep = "99010-090"
+//   let numero = "666" 
+//   let complemento = "66666"
+//   let referencia = "TesteCasa"
+//   let apelido = "testeApelido"
+//   let nome = "gabriel Teste"
+//   let telefone = "88888888888"
   
-  cy.log(novaSenha)
-  cy.get('#gtmActionsMenuList > div > div > div.jsx-1681f388cd853621.modal-login-status-content > div > button.jsx-50b7ee36f9fe1d46.btn_container.container__contained').click({ force: true })
+// cy.editarEndereço(cep,numero, complemento, referencia, apelido, nome, telefone)
+cy.generateRandomNumber(3).then((numeroAleatorio) => {
+  cy.generateRandomName().then((nomeGerado) => {
+    let nome = 'gabriel ' + nomeGerado;
 
-  cy.login(dados.email, dados.senha)
+  // Definindo dados dinâmicos
+  let cep = `99010-090`; // Exemplo de CEP dinâmico
+  let numero = `${numeroAleatorio * 200 + 100}`; // Exemplo de número dinâmico
+  let complemento = `${numeroAleatorio}`;
+  let referencia = `Casa ${numeroAleatorio}`;
+  let apelido = `testeApelido${numeroAleatorio}`;
+  let telefone = `999${numeroAleatorio}${numeroAleatorio}00`; // Telefone dinâmico
 
-  cy.get('#gtmActionsMenuList > div > div > div.jsx-1681f388cd853621.modal-login-status-content > div:nth-child(1) > div > span.jsx-1681f388cd853621.modal-login-status-text-content').click({ force: true })    
-  cy.wait(2000)
-  cy.get(':nth-child(6) > .sidemenu-list-item-btn > #gtmSidemenuListItemText > #gtmSidemenu-list-item-text').click()
-  cy.get('#password').should('be.visible').type(dados.senha)
-  cy.get('#newPassword').type(novaSenha)
-  cy.get('#confirmPassword').type(novaSenha)
-  cy.get('.profile-password-form > .jsx-50b7ee36f9fe1d46').click()
-    // Atualiza a senha no objeto `dados` e grava no JSON
-    cy.updateFixture(fixtureName, novaSenha);
-
-    cy.get('.Toastify__toast-body').should('exist')
+  // Chamando a função para editar o endereço com dados dinâmicos
+  cy.editarEndereço(cep, numero, complemento, referencia, apelido, nome, telefone);
   cy.wait(4000)
-  cy.get('h3.jsx-e469f5966417f8ce').should('be.visible')
+  cy.get('.card-address-container').should('be.visible').click(); // Reabrindo o card do endereço editado
+    
+  // Validação dos dados preenchidos
+  cy.get('#cep').should('have.value', cep);
+  cy.get('#address2').should('have.value', numero);
+  cy.get('#address3').should('have.value', complemento);
+  cy.get('#addressReference').should('have.value', referencia);
+  cy.get('#alias').should('have.value', apelido);
+  cy.get('#receiveName').should('have.value', nome);
+  cy.get('#phoneNumber') // Seleciona o campo com o ID 'phoneNumber'
+  .then(($input) => {
+    const maskedValue = $input.val(); // Obtém o valor atual do input com máscara
+    const actualValue = removeMask(maskedValue); // Remove a máscara do valor atual
 
+    // Verifica se o valor atual (sem máscara) é igual ao esperado
+    expect(actualValue).to.equal(telefone); // Asserção com o valor sem máscara
   });
-
-  it('Seguir compra sem estar logado',()=>{
-
-    cy.selecionarConsultor(consultor)
-
-    cy.get('#gtmNavigationItem a[href="/c/perfumaria"]').click()
-
-// espera 3 sec
-      cy.wait(3000)
-
-// seleciona o primeiro perfume
-
-      cy.get('.h-categoryResults__results .card').first().click()
-   
-// espera 3 sec
-      cy.wait(3000)
-
-// verifica se a página de detalhes do produto foi carregada
-
-      cy.get('.product-detail-banner-container').should('exist')
-
-// espera 3 sec
-      cy.wait(3000)
-
-// adiciona o produto ao carrinho
-
-      cy.get('.jsx-50b7ee36f9fe1d46.btn_container_icon.container__contained').click()
-   
   
-// verifica se a mensagem de sucesso aparece
-cy.wait(1000)
-
-      cy.contains('Produto adicionado a sacola').should('be.visible')
-   
-    // Clica em Ver minha sacola
-
-    cy.get('#__next > div.jsx-4356fd71142b3e9a > div.jsx-4356fd71142b3e9a.drawer.drawer-right.open > div > div.jsx-4356fd71142b3e9a.drawer-scroll-content.display-scroll-content > div.jsx-44dce6d66b50196f.drawer-footer > button').click()
-
-// Verifica se o botão de compra esta ativo e clica    
-cy.get('#gtmbuyNow').should('be.enabled').click();
-
-// espera 10sec
-    cy.wait(4000)
-    cy.get(':nth-child(1) > .input-common > .jsx-425268b939f6000f').type(dados.email)
-    cy.get(':nth-child(2) > .input-common > input.jsx-425268b939f6000f').type(dados.senha)
-    cy.get('#gtmLogin').click()
-    cy.wait(4000)
-    cy.get(':nth-child(1) > .input-common > .jsx-425268b939f6000f').type(dados.email)
-    cy.get(':nth-child(2) > .input-common > input.jsx-425268b939f6000f').type(dados.senha)
-    cy.get('#gtmLogin').click()
   })
 });
+
+  })
+it('Editar dados pessoais', () => {
+
+  cy.consultorVideo()
+  cy.clicarEmLogin()
+  cy.fazerLogin(dados.email, senhaAtual)
+  cy.clicarEmMeuPerfil()
+  cy.generateRandomNumber(3).then((numeroAleatorio) => {
+    cy.generateRandomName().then((nomeGerado) => {
+      cy.generateDate().then((dataGerada) => {
+      let nome = 'gabriel ' + nomeGerado;
+      let data = dataGerada
+      let telefone = `999${numeroAleatorio}${numeroAleatorio}00`;
+
+      cy.editarDadosPessoais(nome, data, telefone)
+
+      })
+    })
+  });
+
+
+});
+
+it('teste', () => {
+  cy.generateRandomNumber(3).then((numeroAleatorio) => {
+    cy.generateRandomName().then((nomeGerado) => {
+      cy.generateDate().then((dataGerada) => {
+      let nome = 'gabriel ' + nomeGerado;
+      let numero = numeroAleatorio
+      let data = dataGerada
+      cy.log(nome)
+      cy.log(numero)
+
+      cy.log(data)
+
+    })
+    })
+  });
+      
+});
+
+})
