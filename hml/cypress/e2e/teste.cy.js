@@ -151,22 +151,22 @@ it('Editar dados pessoais', () => {
 
 });
 
-it('teste', () => {
-  cy.generateRandomNumber(3).then((numeroAleatorio) => {
-    cy.generateRandomName().then((nomeGerado) => {
-      cy.generateDate().then((dataGerada) => {
-      let nome = 'gabriel ' + nomeGerado;
-      let numero = numeroAleatorio
-      let data = dataGerada
-      cy.log(nome)
-      cy.log(numero)
+// it('teste', () => {
+//   cy.generateRandomNumber(3).then((numeroAleatorio) => {
+//     cy.generateRandomName().then((nomeGerado) => {
+//       cy.generateDate().then((dataGerada) => {
+//       let nome = 'gabriel ' + nomeGerado;
+//       let numero = numeroAleatorio
+//       let data = dataGerada
+//       cy.log(nome)
+//       cy.log(numero)
 
-      cy.log(data)
+//       cy.log(data)
 
-    })
-    })
-  });
+//     })
+//     })
+//   });
       
-});
+// });
 
 })
