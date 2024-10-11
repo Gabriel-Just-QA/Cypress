@@ -98,8 +98,8 @@ it('Favoritar PLP', () => {
   cy.clicarPesquisar('baton')
   cy.get('button[aria-label="button-favorite"]').eq(0).click();
 });
-
-it.only('Verifica Notificação', () => {
+// rever
+it('Verifica Notificação', () => {
   cy.consultorVideo()
   cy.clicarEmLogin()
   cy.fazerLogin(dados.email, senhaAtual)
@@ -117,10 +117,7 @@ it.only('Verifica Notificação', () => {
     cy.wait(10000)
     cy.get('div.card-notification-container').first().click();
     cy.contains(numeroCheckout).should('exist')
-
   });
-  
-
 });
 
 it('teste', () => {
@@ -130,4 +127,20 @@ it('teste', () => {
 });
 
 
+
+
+it.only('Deve coletar todos os preços do grid e armazená-los em um array', () => {
+  cy.consultorVideo() 
+  cy.perfumaria()
+  cy.pegarNomes().then((nomes)=> {
+  cy.log(nomes)
+
 })
+  
+  // cy.pegarPrecos().then((precos) => {
+  //   cy.checarPrecosMaiorParaMenor(precos); // Passa o array para a função de checagem
+  // });
+});
+
+
+});

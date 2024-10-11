@@ -312,6 +312,52 @@ Cypress.Commands.add('favoritarPDP', () => {
 })
 
 
+
+// ordenação 
+Cypress.Commands.add('pegarNomes', () => {
+  return cy.get('.jsx-5599e2adc0fee4e5.card-info-product-name').then(($nomes) => {
+    const nomesArray = [];
+    $nomes.each((index, nome) => {
+      nomesArray.push(nome.innerText.trim()); // Pega o texto do nome
+    });
+    return nomesArray; // Retorna os nomes como array de strings
+  });
+});
+
+// Função para checar a ordenação de nomes (A-Z ou Z-A)
+Cypress.Commands.add('checarOrdenacaoNomes', (ordem = 'asc') => {
+  cy.pegarNomes().then((nomesArray) => {
+    const sortedNomes = ordem === 'asc'
+      ? [...nomesArray].sort((a, b) => a.localeCompare(b))  // A-Z
+      : [...nomesArray].sort((a, b) => b.localeCompare(a)); // Z-A
+
+    expect(nomesArray).to.deep.equal(sortedNomes); // Verifica a ordenação
+  });
+});
+
+// Função para pegar os preços da página
+Cypress.Commands.add('pegarPrecos', () => {
+  return cy.get('.jsx-5599e2adc0fee4e5.card-info-new-price').then(($precos) => {
+    const precosArray = [];
+    $precos.each((index, preco) => {
+      const precoLimpo = preco.innerText.replace('R$', '').trim();
+      precosArray.push(parseFloat(precoLimpo)); // Converte para número
+    });
+    return precosArray; // Retorna os preços como números
+  });
+});
+
+// Função para checar a ordenação de preços (ascendente ou descendente)
+Cypress.Commands.add('checarOrdenacaoPrecos', (ordem = 'asc') => {
+  cy.pegarPrecos().then((precosArray) => {
+    const sortedPrecos = ordem === 'asc'
+      ? [...precosArray].sort((a, b) => a - b)  // Menor para maior
+      : [...precosArray].sort((a, b) => b - a); // Maior para menor
+
+    expect(precosArray).to.deep.equal(sortedPrecos); // Verifica a ordenação
+  });
+});
+
 // Comandos avançados
 
 Cypress.Commands.add('updateFixture', (fixtureName, key, newData) => {
