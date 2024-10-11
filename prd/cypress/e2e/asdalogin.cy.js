@@ -22,8 +22,7 @@ describe('Teste Completo de Fluxo Site Natura', () => {
 
 
   let dados;
-  let consultor = "juanito"
-  let nome = "Gabriel"
+  let consultor = "consultorahmlteste"
 
   before(() => {
     cy.fixture('dados-usuario').then((data) => {
@@ -33,7 +32,6 @@ describe('Teste Completo de Fluxo Site Natura', () => {
 
 beforeEach(() => {
 
-  cy.visit('/');
 
   Cypress.on('uncaught:exception', (err, runnable) => {
     return false; 

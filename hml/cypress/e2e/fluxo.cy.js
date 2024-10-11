@@ -19,25 +19,32 @@ describe('Testes De Produtos', () => {
         Cypress.on('uncaught:exception', (err, runnable) => {
           return false; 
         })
-        cy.consultorVideo()
-        cy.perfumaria()
       });
     
 
-it('Deve verificar se os nomes dos produtos estão ordenados de A-Z', () => {
-    cy.checarOrdenacaoNomes('asc');  // Verifica se está em ordem A-Z
-  });
-
-  it('Deve verificar se os nomes dos produtos estão ordenados de Z-A', () => {
-    cy.checarOrdenacaoNomes('desc'); // Verifica se está em ordem Z-A
-  });
-
-  it('Deve verificar se os preços estão ordenados de menor para maior', () => {
-    cy.checarOrdenacaoPrecos('asc');  // Verifica se está em ordem crescente
-  });
-
-  it('Deve verificar se os preços estão ordenados de maior para menor', () => {
-    cy.checarOrdenacaoPrecos('desc'); // Verifica se está em ordem decrescente
-  });
+      it('Ordenação A-Z', () => {
+        cy.consultorVideo('juanito') 
+        cy.perfumaria()
+        cy.ordenarAZ()
+      });
+      
+      it('Ordenação Z-A', () => {
+        cy.consultorVideo('juanito') 
+        cy.perfumaria()
+        cy.ordenarZA()
+      });
+      
+      it('Ordenação 1-2', () => {
+        cy.consultorVideo('juanito') 
+        cy.perfumaria()
+        cy.ordenar12()
+      });
+      
+      it('Ordenação 2-1', () => {
+        cy.consultorVideo('juanito') 
+        cy.perfumaria()
+        cy.ordenar21()
+      });
+      
 
 })

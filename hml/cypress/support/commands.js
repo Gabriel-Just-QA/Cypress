@@ -314,8 +314,73 @@ Cypress.Commands.add('favoritarPDP', () => {
 
 
 // ordenação 
+// cy.get('.filter-button').eq(0).click()
+// cy.get('button[type="submit"]').click()
+
+// cy.get('#product-name-ascending').click();
+
+// cy.get('#top-sellers').click();
+
+// cy.get('#best-matches').click();
+
+
+
+// 
+
+// 
+
+// cy.get('#discounts').click();
+
+Cypress.Commands.add('ordenarAZ', () => {
+  cy.get('.filter-button').eq(0).click()
+  cy.get('#product-name-ascending').click();
+  cy.get('button[type="submit"]').click()
+
+  cy.contains('Mostrar mais').click()
+  cy.contains('Mostrar mais').should('not.exist')
+  cy.contains('Carregando mais produtos...', {timeout: 30000}).should('not.exist')
+  
+  cy.checarOrdenacaoNomes()
+});
+
+Cypress.Commands.add('ordenarZA', () => {
+  cy.get('.filter-button').eq(0).click()
+  cy.get('#product-name-descending').click();
+  cy.get('button[type="submit"]').click()
+
+  cy.contains('Mostrar mais').click()
+  cy.contains('Mostrar mais').should('not.exist')
+  cy.contains('Carregando mais produtos...', {timeout: 30000}).should('not.exist')
+  
+  cy.checarOrdenacaoNomes('dsc')
+});
+
+Cypress.Commands.add('ordenar12', () => {
+  cy.get('.filter-button').eq(0).click()
+  cy.get('#price-low-to-high').click();
+  cy.get('button[type="submit"]').click()
+
+    cy.contains('Mostrar mais').click()
+    cy.contains('Mostrar mais').should('not.exist')
+    cy.contains('Carregando mais produtos...', {timeout: 30000}).should('not.exist')
+    
+  cy.checarOrdenacaoPrecos()
+});
+
+Cypress.Commands.add('ordenar21', () => {
+  cy.get('.filter-button').eq(0).click()
+  cy.get('#price-high-to-low').click();
+  cy.get('button[type="submit"]').click()
+
+  cy.contains('Mostrar mais').click()
+  cy.contains('Mostrar mais').should('not.exist')
+  cy.contains('Carregando mais produtos...', {timeout: 30000}).should('not.exist')
+  
+  cy.checarOrdenacaoPrecos('dsc')
+});
+
 Cypress.Commands.add('pegarNomes', () => {
-  return cy.get('.jsx-5599e2adc0fee4e5.card-info-product-name').then(($nomes) => {
+  return cy.get('.card-info-product-name').then(($nomes) => {
     const nomesArray = [];
     $nomes.each((index, nome) => {
       nomesArray.push(nome.innerText.trim()); // Pega o texto do nome
@@ -337,7 +402,7 @@ Cypress.Commands.add('checarOrdenacaoNomes', (ordem = 'asc') => {
 
 // Função para pegar os preços da página
 Cypress.Commands.add('pegarPrecos', () => {
-  return cy.get('.jsx-5599e2adc0fee4e5.card-info-new-price').then(($precos) => {
+  return cy.get('.card-info-new-price').then(($precos) => {
     const precosArray = [];
     $precos.each((index, preco) => {
       const precoLimpo = preco.innerText.replace('R$', '').trim();
