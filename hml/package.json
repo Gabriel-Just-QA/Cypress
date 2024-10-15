@@ -1,0 +1,22 @@
+{
+  "devDependencies": {
+    "cypress-mochawesome-reporter": "^3.8.2",
+    "cypress-multi-reporters": "^1.6.4",
+    "eslint": "^9.12.0",
+    "eslint-plugin-cypress": "^4.0.0",
+    "faker-br": "^0.4.1",
+    "moch": "^0.0.1",
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^4.3.0",
+    "mochawesome-report-generator": "^6.2.0"
+  },
+  "dependencies": {
+    "cypress": "^13.15.0",
+    "nodemailer": "^6.9.15"
+  },
+  "scripts": {
+    "test": "cypress run --spec 'cypress/e2e/e2e.cy.js'",
+    "generate-report": "node runTests.js",
+    "convert-to-pdf": "node convertToPDF.js"
+  }
+}

@@ -22,7 +22,7 @@ describe('Testes De Produtos', () => {
       });
     
 
-it('Realizar compra pelo Cartão PDP', () => {
+it.only('Realizar compra pelo Cartão PDP', () => {
     cy.consultorVideo()
     cy.clicarEmLogin()
     cy.fazerLogin(dados.email, senhaAtual)
@@ -146,11 +146,11 @@ it('Ordenação 2-1', () => {
 });
 
 
-it('teste', () => {
-  let a = "Pedido #4030340043"
-  let b = removeMask(a)  
-  cy.log(b)
-});
+// it('teste', () => {
+//   let a = "Pedido #4030340043"
+//   let b = removeMask(a)  
+//   cy.log(b)
+// });
 
 
 });

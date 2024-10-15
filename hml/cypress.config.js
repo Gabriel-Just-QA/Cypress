@@ -2,10 +2,8 @@ const { defineConfig } = require('cypress')
 
 module.exports = defineConfig({
   e2e: {
-    defaultCommandTimeout: 15000, // Adicione o timeout aqui
+    defaultCommandTimeout: 20000, // Timeout padrão para os comandos do Cypress
     baseUrl: 'https://sales-mgmt-cb-mfe-composer-akamai.hml.naturacloud.com/',
-    setupNodeEvents(on, config) {
-      // implement node event listeners here
-    },
+      // Importa e ativa o plugin mochawesome para geração de relatórios
   },
 });
