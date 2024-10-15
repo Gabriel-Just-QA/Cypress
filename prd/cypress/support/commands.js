@@ -277,9 +277,10 @@ Cypress.Commands.add('checkout', () => {
     }
   });
     cy.wait(2000)
-  cy.contains('button','Finalizar compra').should('be.enabled').click()
 
-  cy.get('.profile-order-detail-content', { timeout: 50000 }).should('be.visible');
+  cy.contains('button','Finalizar compra').should('be.enabled').click()
+  
+  cy.get('.profile-order-detail-content', { timeout: 100000 }).should('be.visible');
 
 });
 

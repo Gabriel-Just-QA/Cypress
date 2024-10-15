@@ -100,7 +100,7 @@ it('Favoritar PLP', () => {
 });
 
 // rever
-it.only('Verifica Notificação', () => {
+it('Verifica Notificação', () => {
   cy.consultorVideo()
   cy.clicarEmLogin()
   cy.fazerLogin(dados.email, senhaAtual)
